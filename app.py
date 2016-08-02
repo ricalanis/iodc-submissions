@@ -54,8 +54,8 @@ def author_data(driver):
     time.sleep(1)
     people_data = driver.find_elements_by_tag_name("table")[7]
     table_rows = people_data.find_elements_by_tag_name("tr")
-    titles = table_rows[0].find_elements_by_tag_name("td")
-    data = table_rows[1].find_elements_by_tag_name("td")
+    titles = table_rows[1].find_elements_by_tag_name("td")
+    data = table_rows[2].find_elements_by_tag_name("td")
     author_data = {}
     i = 0
     for i in range(0,len(titles)):
@@ -72,12 +72,12 @@ def main():
     authors = []
     for link in submissions_links:
         driver.get(link)
-        authors.append(conference_data(driver))
-        submissions.append(author_data(driver))
+        authors.append(author_data(driver))
+        submissions.append(conference_data(driver))
     authors_df = pd.DataFrame(authors)
     submissions_df  = pd.DataFrame(submissions)
-    authors_df.to_csv("authors.csv", index_col = False)
-    submissions_df.to_csv("submissions.csv", index_col = False)
+    authors_df.to_csv("authors.csv", index = False)
+    submissions_df.to_csv("submissions.csv", index = False)
     return "Great success!"
 
 if __name__ == '__main__':
