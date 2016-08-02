@@ -9,9 +9,9 @@ def login(driver):
     driver.get('http://easychair.org/account/signin.cgi')
     time.sleep(3)
     user_input = driver.find_elements_by_name("name")[0]
-    user_input.send_keys(os.environ["easychair_user"])
     pass_input = driver.find_elements_by_name("password")[0]
-    pass_input.send_keys(password)
+    user_input.send_keys(os.environ["easychair_user"])
+    pass_input.send_keys(os.environ["easychair_password"])
     button = driver.find_elements_by_name("Log in")[0]
     button.click()
     return True
@@ -76,8 +76,8 @@ def main():
         submissions.append(author_data(driver))
     authors_df = pd.DataFrame(authors)
     submissions_df  = pd.DataFrame(submissions)
-    authors_df.to_csv("authors.csv")
-    submissions_df.to_csv("submissions.csv")
+    authors_df.to_csv("authors.csv", index_col = False)
+    submissions_df.to_csv("submissions.csv", index_col = False)
     return "Great success!"
 
 if __name__ == '__main__':
